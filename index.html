@@ -1054,7 +1054,279 @@ img{height:auto}
     </div>
   </div>
 </section>
+<!-- ========================================== -->
+<!-- FACILITY SECTION (TEXT, STATS, 4 SQUARE IMGS)-->
+<!-- ========================================== -->
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+#custom-facility {
+  background: #050a17;
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  
+  /* Layout fixes to prevent right-side overflow */
+  box-sizing: border-box; 
+  width: 100%;
+  
+  padding: 8rem 4rem; 
+  color: #f7f4ec;
+  overflow: hidden;
+  min-height: 100vh; 
+  display: flex;
+  align-items: center;
+}
+
+#custom-facility::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(5,10,23,.4) 100%, rgba(5,10,23,.7) 80%, rgba(5,10,23,.95) 40%);
+}
+
+#custom-facility .facility-bg-img { 
+  /* Fixed to exactly fill the container without pushing the page wide */
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  object-position: center; 
+  z-index: 0; 
+}
+
+#custom-facility .inner { 
+  width: 100%; 
+  max-width: 1400px; 
+  margin: 0 auto; 
+  position: relative; 
+  z-index: 2; 
+  display: flex;
+  flex-direction: column;
+}
+
+/* Text aligned to the left as per the design */
+#custom-facility .content-wrapper {
+  max-width: 650px; 
+  margin-bottom: 5rem; 
+}
+
+/* Animations */
+#custom-facility .kicker,
+#custom-facility h2,
+#custom-facility .desc,
+#custom-facility .stats,
+#custom-facility .img-card {
+  opacity: 0; 
+  transform: translateY(20px); 
+}
+
+#custom-facility .kicker {
+  font-size: 11px; letter-spacing: 5px; text-transform: uppercase;
+  color: rgba(247,244,236,.6); margin-bottom: 2rem;
+  display: flex; align-items: center; gap: 14px;
+  transition: all 1s ease;
+}
+#custom-facility .kicker.in { opacity: 1; transform: translateY(0); }
+#custom-facility .kicker::before { content: ""; width: 40px; height: 1px; background: #b8956a; opacity: .8; }
+
+#custom-facility h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.1;
+  letter-spacing: -.01em; margin-bottom: 2rem;
+  transition: all 1s ease 0.1s;
+}
+#custom-facility h2.in { opacity: 1; transform: translateY(0); }
+#custom-facility h2 em { font-style: italic; color: #b8956a; }
+
+#custom-facility .desc {
+  font-size: 1.05rem; line-height: 1.9; color: rgba(247,244,236,.8);
+  transition: all 0.8s ease;
+}
+#custom-facility p.desc:nth-of-type(1) { transition-delay: 0.3s; }
+#custom-facility p.desc:nth-of-type(2) { transition-delay: 0.4s; }
+
+#custom-facility .desc.in { opacity: 1; transform: translateY(0); }
+#custom-facility .desc strong { color: #b8956a; font-weight: 500; }
+#custom-facility .desc + .desc { margin-top: 1.25rem; }
+
+#custom-facility .stats {
+  display: flex; 
+  width: 100%;
+  border: 1px solid rgba(255,255,255,0.05);
+  background: rgba(15, 25, 45, 0.45); 
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  transition: all 1s ease 0.5s;
+  margin-bottom: 4rem; 
+  border-radius: 12px;
+}
+#custom-facility .stats.in { opacity: 1; transform: translateY(0); }
+#custom-facility .stat {
+  flex: 1; 
+  padding: 3rem 2rem; 
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.05);
+  transition: background .3s;
+}
+#custom-facility .stat:last-child { border-right: none; }
+#custom-facility .stat:hover { background: rgba(184,149,106,.08); }
+#custom-facility .stat-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 2.2rem;
+  color: #ffffff; font-weight: 400; line-height: 1; margin-bottom: 0.75rem;
+}
+
+/* Fixed the 300+ to match the white, superscript design */
+#custom-facility .stat-num em { 
+  font-style: normal; 
+  color: #ffffff; 
+  font-size: 1.4rem; 
+  vertical-align: super; 
+}
+
+#custom-facility .stat-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(247,244,236,.5); font-weight: 600; }
+
+#custom-facility .collage-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+#custom-facility .img-card {
+  position: relative; overflow: hidden;
+  background: rgba(20,35,66,.6);
+  border: 1px solid rgba(247,244,236,.1);
+  border-radius: 8px;
+  aspect-ratio: 4 / 3; /* Adjusted to fit the slightly taller rectangles in the design */
+  transition: all .7s cubic-bezier(.2,.8,.2,1);
+}
+
+#custom-facility .img-card.in { opacity: 1; transform: translateY(0); }
+#custom-facility .img-card:nth-child(1) { transition-delay: 0.1s; }
+#custom-facility .img-card:nth-child(2) { transition-delay: 0.2s; }
+#custom-facility .img-card:nth-child(3) { transition-delay: 0.3s; }
+#custom-facility .img-card:nth-child(4) { transition-delay: 0.4s; }
+
+#custom-facility .img-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s ease; }
+#custom-facility .img-card:hover img { transform: scale(1.06); filter: brightness(1.1); }
+#custom-facility .img-card::after {
+  content: ""; position: absolute; inset: 0;
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+  transition: border-color .6s ease;
+  pointer-events: none; z-index: 3;
+}
+#custom-facility .img-card:hover::after { border-color: rgba(184,149,106,.8); }
+
+@media(max-width: 1024px) {
+  #custom-facility { padding: 6rem 2rem; }
+  #custom-facility .content-wrapper { max-width: 100%; }
+  #custom-facility .desc { max-width: 100%; }
+}
+@media(max-width: 768px) {
+  #custom-facility .stats { flex-direction: column; }
+  #custom-facility .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 2rem 1.5rem; }
+  #custom-facility .stat:last-child { border-bottom: none; }
+  #custom-facility .collage-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+}
+</style>
+
+<section id="custom-facility">
+  <img src="images/facility-bg.jpeg" alt="Facility Background" class="facility-bg-img"/>
+  
+  <div class="inner">
+    
+    <div class="content-wrapper">
+      <div class="kicker fac-anim">Our Facility</div>
+      <h2 class="fac-anim">Where aluminium<br>takes <em>shape</em>.</h2>
+      
+      <!-- Gold accent line successfully removed here -->
+      
+      <p class="desc fac-anim">Our manufacturing facility in <strong>Govindpura Industrial Area, Bhopal</strong> — where ideas take form, precision is built into every profile, and quality is controlled from start to finish.</p>
+      
+      <p class="desc fac-anim">Equipped with state-of-the-art CNC machinery and precision cutting lines, the facility enables us to maintain complete control over quality, timelines and finish — under one roof.</p>
+    </div>
+
+    <div class="stats fac-anim">
+      <div class="stat">
+        <div class="stat-num" data-count="20000" data-suffix="" data-format="comma">0</div>
+        <div class="stat-label">Sq. ft. facility</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">CNC</div>
+        <div class="stat-label">Precision Machinery</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="300" data-suffix="+">0</div>
+        <div class="stat-label">Projects delivered</div>
+      </div>
+    </div>
+
+    <div class="collage-grid">
+      <div class="img-card"><img src="images/cnc.png" alt="Machine Operator"/></div>
+      <div class="img-card"><img src="images/factory.png" alt="Assembly"/></div>
+      <div class="img-card"><img src="images/office1.jpg" alt="Factory Floor"/></div>
+      <div class="img-card"><img src="images/office2.jpg" alt="Glass Partitions"/></div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const facSection = document.getElementById('custom-facility');
+  
+  if (facSection) {
+    // 1. Trigger Fade-In Animations on Scroll
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold: 0.15});
+    
+    facSection.querySelectorAll('.fac-anim, .img-card, .stats').forEach(el => io.observe(el));
+
+    // 2. Trigger Number Counters on Scroll
+    const counterIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          const el = e.target;
+          const target = parseInt(el.dataset.count, 10);
+          if(!isNaN(target)) {
+              const suffix = el.dataset.suffix || '';
+              const useComma = el.dataset.format === 'comma';
+              const duration = target > 1000 ? 2500 : 2000;
+              const startTime = performance.now();
+              
+              const tick = (now) => {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // Ease-out function for smooth slowing down at the end
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(target * eased);
+                const display = useComma ? current.toLocaleString('en-IN') : current;
+                
+                if(progress < 1){
+                  el.innerHTML = display + (suffix ? '<em>' + suffix + '</em>' : '');
+                  requestAnimationFrame(tick);
+                } else {
+                  el.innerHTML = (useComma ? target.toLocaleString('en-IN') : target) + (suffix ? '<em>' + suffix + '</em>' : '');
+                }
+              };
+              requestAnimationFrame(tick);
+          }
+          counterIO.unobserve(el);
+        }
+      });
+    }, {threshold: 0.4});
+    
+    facSection.querySelectorAll('[data-count]').forEach(el => counterIO.observe(el));
+  }
+</script>
 <section class="showcase">
   <div class="showcase-head reveal">
     <div>
